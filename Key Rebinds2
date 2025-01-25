@@ -1,0 +1,50 @@
+// ==UserScript==
+// @name         MooMoo.io Key Bind Changer
+// @namespace    http://tampermonkey.net/
+// @version      1.1
+// @description  Change key bindings in MooMoo.io
+// @author       Your Name
+// @match        *://moomoo.io/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Define your custom key binds
+    const customKeyBinds = {
+        'KeyV': 'Spike' // Pressing V will act as if placing a spike
+    };
+
+    // Add event listener to capture key presses
+    document.addEventListener('keydown', (event) => {
+        const action = customKeyBinds[event.code];
+        if (action) {
+            event.preventDefault(); // Prevent default action
+            handleCustomAction(action);
+        }
+    });
+
+    // Function to handle custom actions
+    function handleCustomAction(action) {
+        switch (action) {
+            case 'Spike':
+                placeSpike();
+                break;
+        }
+    }
+
+    // Function to simulate placing a spike
+    function placeSpike() {
+        // Example action: simulate key press or send the game's spike action
+        const spikeHotkey = 'Digit5'; // Assuming spikes are placed with key 5
+        const event = new KeyboardEvent('keydown', {
+            key: '5',
+            code: spikeHotkey,
+            keyCode: 53, // ASCII code for digit 5
+            which: 53,
+            bubbles: true
+        });
+        document.dispatchEvent(event);
+    }
+})();
